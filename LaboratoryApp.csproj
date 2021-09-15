@@ -74,6 +74,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Models\AppContext.cs" />
     <Compile Include="Models\BaseModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -89,7 +90,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>BaseModel.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Models\AppContext.cs" />
     <Compile Include="Models\CaptchaUtils.cs" />
     <Compile Include="Models\CountryOfInsuranceCompany.cs">
       <DependentUpon>BaseModel.tt</DependentUpon>
@@ -173,12 +173,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <Content Include="Models\BaseModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>BaseModel.Context.cs</LastGenOutput>
       <DependentUpon>BaseModel.edmx</DependentUpon>
+      <LastGenOutput>BaseModel.Context.cs</LastGenOutput>
     </Content>
     <Content Include="Models\BaseModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>

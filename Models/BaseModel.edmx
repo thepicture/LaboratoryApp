@@ -150,6 +150,7 @@
           <Property Name="LastEnter" Type="datetime" />
           <Property Name="TypeOfUserId" Type="int" Nullable="false" />
           <Property Name="IsArchived" Type="bit" />
+          <Property Name="ImagePreview" Type="varbinary(max)" />
         </EntityType>
         <Association Name="FK_HistoryOfUser_User">
           <End Role="User" Type="Self.User" Multiplicity="1" />
@@ -555,6 +556,7 @@
           <Property Name="LastEnter" Type="DateTime" Precision="3" />
           <Property Name="TypeOfUserId" Type="Int32" Nullable="false" />
           <Property Name="IsArchived" Type="Boolean" />
+          <Property Name="ImagePreview" Type="Binary" MaxLength="Max" FixedLength="false" />
           <NavigationProperty Name="HistoryOfUser" Relationship="Self.FK_HistoryOfUser_User" FromRole="User" ToRole="HistoryOfUser" />
           <NavigationProperty Name="Patient" Relationship="Self.FK_Patient_User" FromRole="User" ToRole="Patient" />
           <NavigationProperty Name="ProvidedService" Relationship="Self.FK_ProvidedService_User" FromRole="User" ToRole="ProvidedService" />
@@ -929,6 +931,7 @@
                 <ScalarProperty Name="LastEnter" ColumnName="LastEnter" />
                 <ScalarProperty Name="TypeOfUserId" ColumnName="TypeOfUserId" />
                 <ScalarProperty Name="IsArchived" ColumnName="IsArchived" />
+                <ScalarProperty Name="ImagePreview" ColumnName="ImagePreview" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
