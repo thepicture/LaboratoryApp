@@ -65,7 +65,7 @@
             <StackPanel x:Name="CaptchaPanel" Orientation="Horizontal" Visibility="Collapsed">
                 <StackPanel>
                     <TextBlock Text="Введите капчу:" Style="{StaticResource CommonBlock}" TextAlignment="Left"></TextBlock>
-                    <Image x:Name="CaptchaImage" Width="150" Height="20" Margin="5">
+                    <Image x:Name="CaptchaImage" Width="200" Height="20" Margin="5" Stretch="UniformToFill">
                     </Image>
                     <Button Content="Ввести"
                         Height="20"></Button>

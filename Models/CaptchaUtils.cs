@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -27,6 +28,8 @@ namespace LaboratoryApp.Models
         /// <returns></returns>
         public static bool NotifyAndCheckIfPrepared()
         {
+            attempts++;
+
             if (MAX_ATTEMPT_COUNT == attempts)
             {
                 PrepareCaptcha();
@@ -34,7 +37,6 @@ namespace LaboratoryApp.Models
 
                 return true;
             }
-            attempts++;
 
             return false;
         }
@@ -49,12 +51,15 @@ namespace LaboratoryApp.Models
             var visual = new DrawingVisual();
             DrawingContext context = visual.RenderOpen();
 
+            context.DrawRectangle(BrushUtils.GetRandomBrush(), null, new Rect(0, 0, WIDTH, HEIGHT));
+            context.DrawLine(new Pen(BrushUtils.GetRandomBrush(), random.Next(0, HEIGHT / 16)), new Point(0, random.Next(0, HEIGHT)), new Point(WIDTH, random.Next(0, HEIGHT)));
+            context.DrawLine(new Pen(BrushUtils.GetRandomBrush(), random.Next(0, HEIGHT / 16)), new Point(0, random.Next(0, HEIGHT)), new Point(WIDTH, random.Next(0, HEIGHT)));
+
             for (int i = 0; i < SYMBOLS_COUNT; i++)
             {
-                FormattedText text = new FormattedText(_captcha, System.Globalization.CultureInfo.InvariantCulture, System.Windows.FlowDirection.LeftToRight, new Typeface("Times New Roman"), FONT_SIZE, (Brush)brushes[random.Next(0, brushes.Length)].GetValue(null), VisualTreeHelper.GetDpi(visual).PixelsPerDip);
-                context.DrawText(text, new System.Windows.Point(0, 0));
+                FormattedText text = new FormattedText(_captcha, System.Globalization.CultureInfo.InvariantCulture, System.Windows.FlowDirection.LeftToRight, new Typeface("Times New Roman"), FONT_SIZE, BrushUtils.GetRandomBrush(), VisualTreeHelper.GetDpi(visual).PixelsPerDip);
+                context.DrawText(text, new System.Windows.Point(WIDTH / SYMBOLS_COUNT * i + random.Next(-WIDTH, WIDTH), HEIGHT / SYMBOLS_COUNT * i + random.Next(-HEIGHT, HEIGHT)));
             }
-
             context.Close();
 
             currentCaptcha = new DrawingImage(visual.Drawing);

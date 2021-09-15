@@ -16,7 +16,7 @@ namespace LaboratoryApp.Models
         /// <summary>
         /// Returns a random brush.
         /// </summary>
-        public static Brush getRandomBrush()
+        public static Brush GetRandomBrush()
         {
             return brushes.ElementAt(random.Next(0, brushes.Count()));
         }
