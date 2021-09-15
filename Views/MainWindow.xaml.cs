@@ -1,17 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿
+
+using LaboratoryApp.Models;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace LaboratoryApp
 {
@@ -23,6 +14,40 @@ namespace LaboratoryApp
         public MainWindow()
         {
             InitializeComponent();
+
+        }
+
+        /// <summary>
+        /// Exit the current app.
+        /// </summary>
+        private void BtnExit_Click(object sender, RoutedEventArgs e)
+        {
+            bool isWantsToExit = SimpleMessager.ShowQuestion("Точно покинуть приложение?");
+
+            if (isWantsToExit)
+            {
+                App.Current.Shutdown();
+            }
+        }
+
+        /// <summary>
+        /// Login for the user.
+        /// </summary>
+        private void BtnLogin_Click(object sender, RoutedEventArgs e)
+        {
+            LaboratoryBaseEntities context = AppContext.GetInstance();
+
+            User user = context.User.FirstOrDefault(u => u.Login.Equals(LoginBox) && u.Password.Equals(PBoxPassword));
+
+            if (user == null)
+            {
+                bool isCaptchaReady = CaptchaUtils.NotifyAndCheckIfPrepared();
+
+                if (isCaptchaReady)
+                {
+                    BitMapImage captcha = CaptchaUtils.GetCaptcha();
+                }
+            }
         }
     }
 }

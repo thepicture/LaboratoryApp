@@ -52,23 +52,23 @@
                     VerticalAlignment="Center">
             <StackPanel Orientation="Horizontal" >
                 <TextBlock Text="Логин" Style="{StaticResource CommonBlock}"></TextBlock>
-                <ComboBox HorizontalAlignment="Left"></ComboBox>
+                <TextBox Name="LoginBox"></TextBox>
             </StackPanel>
             <StackPanel Orientation="Horizontal" >
                 <TextBlock Text="Пароль" Style="{StaticResource CommonBlock}"></TextBlock>
                 <StackPanel x:Name="PasswordHider">
-                    <PasswordBox HorizontalAlignment="Left"></PasswordBox>
+                    <PasswordBox HorizontalAlignment="Left" Name="PBoxPassword"></PasswordBox>
                     <TextBox Visibility="Collapsed"></TextBox>
                 </StackPanel>
             </StackPanel>
             <StackPanel x:Name="CaptchaPanel" Orientation="Horizontal">
                 <TextBlock Text="Введите капчу:" Style="{StaticResource CommonBlock}"></TextBlock>
                 <Image x:Name="CaptchaImage"></Image>
-                <TextBox></TextBox>
+                <TextBox x:Name="CaptchaBox"></TextBox>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
-                <Button Content="Выход"></Button>
-                <Button Content="Войти"></Button>
+                <Button Content="Выход" Name="BtnExit" Click="BtnExit_Click"></Button>
+                <Button Content="Войти" Name="BtnLogin" Click="BtnLogin_Click"></Button>
             </StackPanel>
         </StackPanel>
     </Grid>
