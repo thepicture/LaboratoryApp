@@ -58,14 +58,20 @@
                 <TextBlock Text="Пароль" Style="{StaticResource CommonBlock}"></TextBlock>
                 <StackPanel x:Name="PasswordHider">
                     <PasswordBox HorizontalAlignment="Left" Name="PBoxPassword"></PasswordBox>
-                    <TextBox Visibility="Collapsed"></TextBox>
+                    <TextBox x:Name="TBoxPassword" Visibility="Collapsed"></TextBox>
                 </StackPanel>
             </StackPanel>
-            <StackPanel x:Name="CaptchaPanel" Orientation="Horizontal">
+            <StackPanel x:Name="CaptchaPanel" Orientation="Horizontal" Visibility="Collapsed">
                 <TextBlock Text="Введите капчу:" Style="{StaticResource CommonBlock}"></TextBlock>
                 <Image x:Name="CaptchaImage"></Image>
                 <TextBox x:Name="CaptchaBox"></TextBox>
             </StackPanel>
+            <CheckBox Content="Показать пароль"
+                      HorizontalAlignment="Right"
+                      Margin="5"
+                      Name="ShowPasswordBox"
+                      Checked="ShowPasswordBox_Checked"
+                      Unchecked="ShowPasswordBox_Unchecked"></CheckBox>
             <StackPanel Orientation="Horizontal">
                 <Button Content="Выход" Name="BtnExit" Click="BtnExit_Click"></Button>
                 <Button Content="Войти" Name="BtnLogin" Click="BtnLogin_Click"></Button>

@@ -8,8 +8,9 @@ namespace LaboratoryApp.Models
         private static readonly int MAX_ATTEMPT_COUNT = 2;
         private static int attempts = 0;
         private static string _captcha;
+        private static BitmapImage currentCaptcha;
         /// <summary>
-        /// Notifies captcha that login attempt is incorrect and this class must return his state about captcha image.
+        /// Notifies the captcha that a login attempt is incorrect and this class must return its state about captcha image.
         /// </summary>
         /// <returns></returns>
         public static bool NotifyAndCheckIfPrepared()
@@ -18,8 +19,11 @@ namespace LaboratoryApp.Models
             {
                 PrepareCaptcha();
                 attempts = 0;
+
                 return true;
             }
+            attempts++;
+
             return false;
         }
 
@@ -34,12 +38,17 @@ namespace LaboratoryApp.Models
         /// <summary>
         /// Gets the captcha.
         /// </summary>
-        private static BitmapImage GetCaptcha()
+        public static BitmapImage GetCaptcha()
         {
-            return null;
+            return currentCaptcha;
         }
 
-        private static bool ValidateCaptcha(string captcha)
+        /// <summary>
+        /// Checks if the captcha is correct.
+        /// </summary>
+        /// <param name="captcha"></param>
+        /// <returns></returns>
+        public static bool ValidateCaptcha(string captcha)
         {
             if (captcha != _captcha)
             {
