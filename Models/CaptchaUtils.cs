@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Text;
+using System.Windows.Controls;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
 namespace LaboratoryApp.Models
@@ -8,7 +11,8 @@ namespace LaboratoryApp.Models
         private static readonly int MAX_ATTEMPT_COUNT = 2;
         private static int attempts = 0;
         private static string _captcha;
-        private static BitmapImage currentCaptcha;
+        private static DrawingImage currentCaptcha;
+        private static Random random;
         /// <summary>
         /// Notifies the captcha that a login attempt is incorrect and this class must return its state about captcha image.
         /// </summary>
@@ -32,13 +36,48 @@ namespace LaboratoryApp.Models
         /// </summary>
         private static void PrepareCaptcha()
         {
-            
+            _captcha = GenerateCaptchaText();
+
+            byte[] pixels = new byte[256 * 256 * 4];
+            BitmapSource bitmapSource = BitmapSource.Create(200, 20, 1, 1, PixelFormats.Pbgra32, BitmapPalettes.WebPalette, pixels, 256 * 4);
+
+            var visual = new DrawingVisual();
+            DrawingContext context = visual.RenderOpen();
+
+            for (int i = 0; i < 4; i++)
+            {
+                FormattedText text = new FormattedText(_captcha, System.Globalization.CultureInfo.InvariantCulture, System.Windows.FlowDirection.LeftToRight, new Typeface("Times New Roman"), 20, Brushes.Black, VisualTreeHelper.GetDpi(visual).PixelsPerDip);
+                context.DrawText(text, new System.Windows.Point(0, 0));
+            }
+
+
+            context.Close();
+
+            currentCaptcha = new DrawingImage(visual.Drawing);
+        }
+
+        private static string GenerateCaptchaText()
+        {
+            if (random == null)
+            {
+                random = new Random();
+            }
+
+            string symbols = "qwertyuiopasdfghjklzxcvbnm1234567890QWERTYUIOPASDFGHJKLZXCVBNM";
+            StringBuilder result = new StringBuilder();
+
+            for (int i = 0; i < 4; i++)
+            {
+                result.Append(symbols[random.Next(0, symbols.Length)]);
+            }
+
+            return result.ToString();
         }
 
         /// <summary>
         /// Gets the captcha.
         /// </summary>
-        public static BitmapImage GetCaptcha()
+        public static DrawingImage GetCaptcha()
         {
             return currentCaptcha;
         }

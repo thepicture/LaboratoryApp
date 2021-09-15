@@ -3,6 +3,7 @@
 using LaboratoryApp.Models;
 using System.Linq;
 using System.Windows;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
 namespace LaboratoryApp
@@ -63,7 +64,7 @@ namespace LaboratoryApp
         {
             CaptchaPanel.Visibility = Visibility.Visible;
 
-            BitmapImage captcha = CaptchaUtils.GetCaptcha();
+            DrawingImage captcha = CaptchaUtils.GetCaptcha();
 
             CaptchaImage.Source = captcha;
         }
