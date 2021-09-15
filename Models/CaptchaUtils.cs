@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Reflection;
 using System.Text;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -9,10 +12,16 @@ namespace LaboratoryApp.Models
     public class CaptchaUtils
     {
         private static readonly int MAX_ATTEMPT_COUNT = 2;
+        private static readonly int FONT_SIZE = 20;
+        private static readonly int SYMBOLS_COUNT = 4;
+        private static readonly int WIDTH = 200;
+        private static readonly int HEIGHT = 200;
         private static int attempts = 0;
         private static string _captcha;
         private static DrawingImage currentCaptcha;
         private static Random random;
+        private static readonly PropertyInfo[] brushes = typeof(Brushes).GetProperties();
+
         /// <summary>
         /// Notifies the captcha that a login attempt is incorrect and this class must return its state about captcha image.
         /// </summary>
@@ -38,18 +47,14 @@ namespace LaboratoryApp.Models
         {
             _captcha = GenerateCaptchaText();
 
-            byte[] pixels = new byte[256 * 256 * 4];
-            BitmapSource bitmapSource = BitmapSource.Create(200, 20, 1, 1, PixelFormats.Pbgra32, BitmapPalettes.WebPalette, pixels, 256 * 4);
-
             var visual = new DrawingVisual();
             DrawingContext context = visual.RenderOpen();
 
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < SYMBOLS_COUNT; i++)
             {
-                FormattedText text = new FormattedText(_captcha, System.Globalization.CultureInfo.InvariantCulture, System.Windows.FlowDirection.LeftToRight, new Typeface("Times New Roman"), 20, Brushes.Black, VisualTreeHelper.GetDpi(visual).PixelsPerDip);
+                FormattedText text = new FormattedText(_captcha, System.Globalization.CultureInfo.InvariantCulture, System.Windows.FlowDirection.LeftToRight, new Typeface("Times New Roman"), FONT_SIZE, (Brush)brushes[random.Next(0, brushes.Length)].GetValue(null), VisualTreeHelper.GetDpi(visual).PixelsPerDip);
                 context.DrawText(text, new System.Windows.Point(0, 0));
             }
-
 
             context.Close();
 
@@ -66,7 +71,7 @@ namespace LaboratoryApp.Models
             string symbols = "qwertyuiopasdfghjklzxcvbnm1234567890QWERTYUIOPASDFGHJKLZXCVBNM";
             StringBuilder result = new StringBuilder();
 
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < SYMBOLS_COUNT; i++)
             {
                 result.Append(symbols[random.Next(0, symbols.Length)]);
             }
