@@ -90,6 +90,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>BaseModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\BrushUtils.cs" />
     <Compile Include="Models\CaptchaUtils.cs" />
     <Compile Include="Models\CountryOfInsuranceCompany.cs">
       <DependentUpon>BaseModel.tt</DependentUpon>

@@ -20,7 +20,6 @@ namespace LaboratoryApp.Models
         private static string _captcha;
         private static DrawingImage currentCaptcha;
         private static Random random;
-        private static readonly PropertyInfo[] brushes = typeof(Brushes).GetProperties();
 
         /// <summary>
         /// Notifies the captcha that a login attempt is incorrect and this class must return its state about captcha image.
