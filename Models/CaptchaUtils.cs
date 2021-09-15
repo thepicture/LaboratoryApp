@@ -32,7 +32,7 @@ namespace LaboratoryApp.Models
         /// </summary>
         private static void PrepareCaptcha()
         {
-            throw new NotImplementedException();
+            
         }
 
         /// <summary>

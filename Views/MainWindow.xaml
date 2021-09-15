@@ -61,10 +61,16 @@
                     <TextBox x:Name="TBoxPassword" Visibility="Collapsed"></TextBox>
                 </StackPanel>
             </StackPanel>
+
             <StackPanel x:Name="CaptchaPanel" Orientation="Horizontal" Visibility="Collapsed">
-                <TextBlock Text="Введите капчу:" Style="{StaticResource CommonBlock}"></TextBlock>
-                <Image x:Name="CaptchaImage"></Image>
-                <TextBox x:Name="CaptchaBox"></TextBox>
+                <StackPanel>
+                    <TextBlock Text="Введите капчу:" Style="{StaticResource CommonBlock}" TextAlignment="Left"></TextBlock>
+                    <Image x:Name="CaptchaImage" Width="150" Height="20" Margin="5">
+                    </Image>
+                    <Button Content="Ввести"
+                        Height="20"></Button>
+                </StackPanel>
+                <TextBox x:Name="CaptchaBox" Height="20"></TextBox>
             </StackPanel>
             <CheckBox Content="Показать пароль"
                       HorizontalAlignment="Right"

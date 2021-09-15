@@ -44,11 +44,11 @@ namespace LaboratoryApp
             {
                 SimpleMessager.ShowError("Неверный логин и/или пароль.\nПожалуйста, введите корректные данные.");
 
-                checkIfCaptchaIsReady();
+                CheckIfCaptchaIsReady();
             }
         }
 
-        private void checkIfCaptchaIsReady()
+        private void CheckIfCaptchaIsReady()
         {
             bool isCaptchaReady = CaptchaUtils.NotifyAndCheckIfPrepared();
 
@@ -61,6 +61,8 @@ namespace LaboratoryApp
 
         private void InitCaptchaPanel()
         {
+            CaptchaPanel.Visibility = Visibility.Visible;
+
             BitmapImage captcha = CaptchaUtils.GetCaptcha();
 
             CaptchaImage.Source = captcha;
