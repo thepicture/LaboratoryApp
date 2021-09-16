@@ -45,13 +45,7 @@ namespace LaboratoryApp
 
             User user = await Task.Run(() =>
             {
-                LaboratoryBaseEntities entities = new LaboratoryBaseEntities();
-                User currentUser = null;
-                Dispatcher.Invoke(() =>
-                {
-                    currentUser = entities.User.FirstOrDefault(u => u.Login.Equals(LoginBox.Text) && u.Password.Equals(PBoxPassword.Password));
-                });
-                return currentUser;
+                return GetUserOrNull();
             });
 
             if (user == null)
@@ -60,6 +54,20 @@ namespace LaboratoryApp
 
                 CheckIfCaptchaIsReady();
             }
+        }
+
+        private User GetUserOrNull()
+        {
+            LaboratoryBaseEntities entities = new LaboratoryBaseEntities();
+            User currentUser = null;
+            Dispatcher.Invoke(() =>
+            {
+                string login = LoginBox.Text;
+                string password = PBoxPassword.Password;
+
+                currentUser = entities.User.FirstOrDefault(u => u.Login.Equals(login) && u.Password.Equals(password));
+            });
+            return currentUser;
         }
 
         private void CheckIfCaptchaIsReady()
@@ -150,6 +158,16 @@ namespace LaboratoryApp
         private void BtnReloadCaptcha_Click(object sender, RoutedEventArgs e)
         {
             InsertCaptcha();
+        }
+
+        private void CaptchaImage_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            CaptchaDemonstrator.Visibility = Visibility.Visible;
+        }
+
+        private void BtnCloseGiantCaptcha_Click(object sender, RoutedEventArgs e)
+        {
+            CaptchaDemonstrator.Visibility = Visibility.Collapsed;
         }
     }
 }

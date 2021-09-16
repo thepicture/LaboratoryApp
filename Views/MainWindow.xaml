@@ -65,56 +65,8 @@
             <StackPanel x:Name="CaptchaPanel" Orientation="Horizontal" Visibility="Collapsed">
                 <StackPanel>
                     <TextBlock Text="Введите капчу:" Style="{StaticResource CommonBlock}" TextAlignment="Left"></TextBlock>
-                    <Image x:Name="CaptchaImage" Width="auto" Height="auto" Margin="5" Stretch="UniformToFill" RenderTransformOrigin="0.5,0.5">
-                        <Image.RenderTransform>
-                            <ScaleTransform/>
-                        </Image.RenderTransform>
-                        <Image.Triggers>
-                            <EventTrigger RoutedEvent="Mouse.MouseEnter">
-                                <BeginStoryboard>
-                                    <Storyboard>
-                                        <DoubleAnimation Duration="0:0:1"
-                                                         From="1"
-                                                         To="1.5"
-                                                         Storyboard.TargetProperty="RenderTransform.ScaleX">
-                                            <DoubleAnimation.EasingFunction>
-                                                <CircleEase EasingMode="EaseOut"></CircleEase>
-                                            </DoubleAnimation.EasingFunction>
-                                        </DoubleAnimation>
-                                        <DoubleAnimation Duration="0:0:1"
-                                                         From="1"
-                                                         To="1.5"
-                                                         Storyboard.TargetProperty="RenderTransform.ScaleY">
-                                            <DoubleAnimation.EasingFunction>
-                                                <CircleEase EasingMode="EaseOut"></CircleEase>
-                                            </DoubleAnimation.EasingFunction>
-                                        </DoubleAnimation>
-                                    </Storyboard>
-                                </BeginStoryboard>
-                            </EventTrigger>
-                            <EventTrigger RoutedEvent="Mouse.MouseLeave">
-                                <BeginStoryboard>
-                                    <Storyboard>
-                                        <DoubleAnimation Duration="0:0:1"
-                                                         To="1"
-                                                         From="1.5"
-                                                         Storyboard.TargetProperty="RenderTransform.ScaleX">
-                                            <DoubleAnimation.EasingFunction>
-                                                <CircleEase EasingMode="EaseOut"></CircleEase>
-                                            </DoubleAnimation.EasingFunction>
-                                        </DoubleAnimation>
-                                        <DoubleAnimation Duration="0:0:1"
-                                                         To="1"
-                                                         From="1.5"
-                                                         Storyboard.TargetProperty="RenderTransform.ScaleY">
-                                            <DoubleAnimation.EasingFunction>
-                                                <CircleEase EasingMode="EaseOut"></CircleEase>
-                                            </DoubleAnimation.EasingFunction>
-                                        </DoubleAnimation>
-                                    </Storyboard>
-                                </BeginStoryboard>
-                            </EventTrigger>
-                        </Image.Triggers>
+                    <Image x:Name="CaptchaImage" Width="auto" Height="auto" Margin="5" Stretch="UniformToFill" RenderTransformOrigin="0.5,0.5"
+                           Cursor="Hand" ToolTip="Приблизить изображение" MouseDown="CaptchaImage_MouseDown">
                     </Image>
                     <Button Content="Ввести"
                         Height="20"
@@ -138,5 +90,20 @@
                 <Button Content="Войти" Name="BtnLogin" Click="BtnLogin_Click"></Button>
             </StackPanel>
         </StackPanel>
+        <Grid x:Name="CaptchaDemonstrator"
+              Visibility="Collapsed">
+            <Grid Opacity=".6"
+                  Background="Black"></Grid>
+            <Image Width="400"
+                   Height="40"
+                   Name="GiantCaptcha"
+                   Source="{Binding ElementName=CaptchaImage, Path=Source}"></Image>
+            <Button Content="Закрыть увеличенное изображение"
+                    VerticalAlignment="Bottom"
+                    Width="auto"
+                    HorizontalAlignment="Center"
+                    Name="BtnCloseGiantCaptcha"
+                    Click="BtnCloseGiantCaptcha_Click"></Button>
+        </Grid>
     </Grid>
 </Window>
