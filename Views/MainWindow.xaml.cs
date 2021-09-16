@@ -41,11 +41,17 @@ namespace LaboratoryApp
         /// </summary>
         private async void BtnLogin_Click(object sender, RoutedEventArgs e)
         {
-            LaboratoryBaseEntities context = AppContext.GetInstance();
-
             User user = await Task.Run(() =>
             {
-                return GetUserOrNull();
+                LaboratoryBaseEntities entities = AppContext.GetInstance();
+                User currentUser = null;
+                string[] credentials = GetControlsCredentials();
+                string login = credentials[0];
+                string password = credentials[1];
+
+                currentUser = entities.User.FirstOrDefault(u => u.Login.Equals(login) && u.Password.Equals(password));
+
+                return currentUser;
             });
 
             if (user == null)
@@ -56,18 +62,14 @@ namespace LaboratoryApp
             }
         }
 
-        private User GetUserOrNull()
+        private string[] GetControlsCredentials()
         {
-            LaboratoryBaseEntities entities = new LaboratoryBaseEntities();
-            User currentUser = null;
+            string[] credentials = null;
             Dispatcher.Invoke(() =>
             {
-                string login = LoginBox.Text;
-                string password = PBoxPassword.Password;
-
-                currentUser = entities.User.FirstOrDefault(u => u.Login.Equals(login) && u.Password.Equals(password));
+                credentials = new string[] { LoginBox.Text, PBoxPassword.Password };
             });
-            return currentUser;
+            return credentials;
         }
 
         private void CheckIfCaptchaIsReady()
