@@ -1,10 +1,12 @@
 ﻿
 
 using LaboratoryApp.Models;
+using LaboratoryApp.Views;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
@@ -67,6 +69,21 @@ namespace LaboratoryApp
             else
             {
                 SimpleMessager.ShowMessage("Добро пожаловать, " + user.FullName + "!");
+                FunctionalWindow funcWindow = new FunctionalWindow();
+                if (user != null)
+                {
+                    AppData.CurrentUser = user;
+                    AppData.LoginWindow = this;
+                    AppData.CurrentTitle = user.FullName + " - " + user.TypeOfUser.Name;
+                    funcWindow.MainFrame.Navigate(UserPageFactory.CreatePageFor(user));
+
+                    Hide();
+                }
+                else
+                {
+                    SimpleMessager.ShowError($"Не удалось загрузить окно интерфейса для роли {user.TypeOfUser.Name}." +
+                        $"\nПожалуйста, обратитесь к администратору.");
+                }
             }
         }
 
