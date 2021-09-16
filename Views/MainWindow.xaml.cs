@@ -41,6 +41,8 @@ namespace LaboratoryApp
         /// </summary>
         private async void BtnLogin_Click(object sender, RoutedEventArgs e)
         {
+            LoadingRect.Visibility = Visibility.Visible;
+
             User user = await Task.Run(() =>
             {
                 LaboratoryBaseEntities entities = AppContext.GetInstance();
@@ -54,11 +56,17 @@ namespace LaboratoryApp
                 return currentUser;
             });
 
+            LoadingRect.Visibility = Visibility.Hidden;
+
             if (user == null)
             {
                 SimpleMessager.ShowError("Неверный логин и/или пароль.\nПожалуйста, введите корректные данные.");
 
                 CheckIfCaptchaIsReady();
+            }
+            else
+            {
+                SimpleMessager.ShowMessage("Добро пожаловать, " + user.FullName + "!");
             }
         }
 

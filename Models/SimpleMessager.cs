@@ -27,5 +27,10 @@ namespace LaboratoryApp.Models
 
             return result == MessageBoxResult.Yes;
         }
+
+        public static void ShowMessage(string message)
+        {
+            MessageBox.Show(message, "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
     }
 }
