@@ -69,13 +69,15 @@
                            Cursor="Hand" ToolTip="Приблизить изображение" MouseDown="CaptchaImage_MouseDown">
                     </Image>
                     <Button Content="Ввести"
-                        Height="20"
+                            Height="20"
                             Name="BtnCheckCaptcha"
-                            Click="BtnCheckCaptcha_Click"></Button>
+                            Click="BtnCheckCaptcha_Click"
+                            Width="auto"></Button>
                     <Button Content="Пересобрать"
-                        Height="20"
+                            Height="20"
                             Name="BtnReloadCaptcha"
-                            Click="BtnReloadCaptcha_Click"></Button>
+                            Click="BtnReloadCaptcha_Click"
+                            Width="auto"></Button>
                 </StackPanel>
                 <TextBox x:Name="CaptchaBox" Height="20"></TextBox>
             </StackPanel>
