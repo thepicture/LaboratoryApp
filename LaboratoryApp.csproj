@@ -143,10 +143,12 @@
     <Compile Include="Models\ServiceStatus.cs">
       <DependentUpon>BaseModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\SessionTimer.cs" />
     <Compile Include="Models\SimpleMessager.cs" />
     <Compile Include="Models\sysdiagrams.cs">
       <DependentUpon>BaseModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\TitleUtils.cs" />
     <Compile Include="Models\TypeOfAnalyzer.cs">
       <DependentUpon>BaseModel.tt</DependentUpon>
     </Compile>

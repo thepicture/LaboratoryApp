@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LaboratoryApp.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,6 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace LaboratoryApp.Views
 {
@@ -19,9 +21,53 @@ namespace LaboratoryApp.Views
     /// </summary>
     public partial class FunctionalWindow : Window
     {
+        private TimeSpan accumulator = new TimeSpan();
+
         public FunctionalWindow()
         {
             InitializeComponent();
+
+            string role = AppData.CurrentUser.TypeOfUser.Name;
+
+            if (role == "Лаборант" || role == "Лаборант-исследователь")
+            {
+                InitializeTimerForTitle();
+            }
+        }
+
+        private void InitializeTimerForTitle()
+        {
+            DispatcherTimer timer = SessionTimer.GetInstance();
+
+            timer.Tick += Session_Tick;
+            timer.Start();
+
+            TitleUtils.AppendValue(accumulator.ToString(), this);
+        }
+
+        private void Session_Tick(object sender, EventArgs e)
+        {
+            accumulator += TimeSpan.FromSeconds(1);
+
+            if (accumulator.Minutes == 1 && accumulator.Seconds == 0)
+            {
+                SimpleMessager.ShowMessage("Сеанс окончится через 5 минут");
+            }
+            else if (accumulator.Minutes == 2 && accumulator.Seconds == 0)
+            {
+                SimpleMessager.ShowMessage("Сеанс окончен");
+
+                CloseCurrentWindowAndBlockLogin();
+                (sender as DispatcherTimer).Stop();
+            }
+
+            TitleUtils.AppendValue(accumulator.ToString(), this);
+        }
+
+        private void CloseCurrentWindowAndBlockLogin()
+        {
+            Close();
+            AppData.LoginWindow.Show();
         }
     }
 }

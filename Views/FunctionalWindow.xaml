@@ -5,9 +5,17 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LaboratoryApp.Views"
         mc:Ignorable="d"
-        Title="FunctionalWindow" Height="450" Width="800">
+        Height="450" Width="800" MinHeight="450" MinWidth="800" Topmost="True"
+        Title="{Binding CurrentTitle}">
     <Grid>
-        <!--This frame contains content depending on user's role.-->
-        <Frame x:Name="MainFrame"></Frame>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+        </Grid>
+        <!--This frame contains content depending on the user's role.-->
+        <Frame x:Name="MainFrame" Grid.Row="1"></Frame>
     </Grid>
 </Window>

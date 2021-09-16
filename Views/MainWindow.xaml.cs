@@ -68,14 +68,19 @@ namespace LaboratoryApp
             }
             else
             {
-                SimpleMessager.ShowMessage("Добро пожаловать, " + user.FullName + "!");
-                FunctionalWindow funcWindow = new FunctionalWindow();
+
                 if (user != null)
                 {
                     AppData.CurrentUser = user;
+
+                    SimpleMessager.ShowMessage("Добро пожаловать, " + user.FullName + "!");
+                    FunctionalWindow funcWindow = new FunctionalWindow();
+
                     AppData.LoginWindow = this;
                     AppData.CurrentTitle = user.FullName + " - " + user.TypeOfUser.Name;
                     funcWindow.MainFrame.Navigate(UserPageFactory.CreatePageFor(user));
+
+                    funcWindow.Show();
 
                     Hide();
                 }
