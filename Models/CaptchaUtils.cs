@@ -12,7 +12,7 @@ namespace LaboratoryApp.Models
         private static readonly int SYMBOLS_COUNT = 4;
         private static readonly int WIDTH = 200;
         private static readonly int HEIGHT = 20;
-        private static readonly int MAX_THICKNESS = 5;
+        private static readonly int MAX_THICKNESS = 3;
         private static int attempts = 0;
         private static string _captcha;
         private static DrawingImage currentCaptcha;
@@ -50,8 +50,8 @@ namespace LaboratoryApp.Models
 
             for (int i = 0; i < SYMBOLS_COUNT; i++)
             {
-                FormattedText text = new FormattedText(_captcha.ToCharArray()[i].ToString(), System.Globalization.CultureInfo.InvariantCulture, FlowDirection.LeftToRight, new Typeface("Times New Roman"), FONT_SIZE + random.Next(-FONT_SIZE / 2, FONT_SIZE / 2), BrushUtils.GetRandomBrush(), VisualTreeHelper.GetDpi(visual).PixelsPerDip);
-                context.DrawText(text, new Point(WIDTH / SYMBOLS_COUNT * i, HEIGHT / SYMBOLS_COUNT * i + random.Next(-HEIGHT / 2, HEIGHT / 2)));
+                FormattedText text = new FormattedText(_captcha.ToCharArray()[i].ToString(), System.Globalization.CultureInfo.InvariantCulture, FlowDirection.LeftToRight, new Typeface("Times New Roman"), FONT_SIZE + random.Next(-FONT_SIZE / 2, 0), BrushUtils.GetRandomBrush(), VisualTreeHelper.GetDpi(visual).PixelsPerDip);
+                context.DrawText(text, new Point(WIDTH / SYMBOLS_COUNT * i, 0));
             }
             context.DrawLine(new Pen(BrushUtils.GetRandomBrush(), random.Next(1, MAX_THICKNESS)), new Point(0, random.Next(0, HEIGHT)), new Point(WIDTH, random.Next(0, HEIGHT)));
             context.DrawLine(new Pen(BrushUtils.GetRandomBrush(), random.Next(1, MAX_THICKNESS)), new Point(0, random.Next(0, HEIGHT)), new Point(WIDTH, random.Next(0, HEIGHT)));
@@ -59,6 +59,11 @@ namespace LaboratoryApp.Models
             context.Close();
 
             currentCaptcha = new DrawingImage(visual.Drawing);
+        }
+
+        public static void RegenerateCaptcha()
+        {
+            PrepareCaptcha();
         }
 
         private static string GenerateCaptchaText()

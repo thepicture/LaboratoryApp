@@ -1,10 +1,14 @@
 ﻿
 
 using LaboratoryApp.Models;
+using System;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Threading;
+using AppContext = LaboratoryApp.Models.AppContext;
 
 namespace LaboratoryApp
 {
@@ -35,11 +39,20 @@ namespace LaboratoryApp
         /// <summary>
         /// Login for the user.
         /// </summary>
-        private void BtnLogin_Click(object sender, RoutedEventArgs e)
+        private async void BtnLogin_Click(object sender, RoutedEventArgs e)
         {
             LaboratoryBaseEntities context = AppContext.GetInstance();
 
-            User user = context.User.FirstOrDefault(u => u.Login.Equals(LoginBox.Text) && u.Password.Equals(PBoxPassword.Password));
+            User user = await Task.Run(() =>
+            {
+                LaboratoryBaseEntities entities = new LaboratoryBaseEntities();
+                User currentUser = null;
+                Dispatcher.Invoke(() =>
+                {
+                    currentUser = entities.User.FirstOrDefault(u => u.Login.Equals(LoginBox.Text) && u.Password.Equals(PBoxPassword.Password));
+                });
+                return currentUser;
+            });
 
             if (user == null)
             {
@@ -64,6 +77,18 @@ namespace LaboratoryApp
         {
             CaptchaPanel.Visibility = Visibility.Visible;
 
+            InsertCaptcha();
+        }
+
+        private void HideCaptchaPanel()
+        {
+            CaptchaPanel.Visibility = Visibility.Collapsed;
+        }
+
+        private void InsertCaptcha()
+        {
+            CaptchaUtils.RegenerateCaptcha();
+
             DrawingImage captcha = CaptchaUtils.GetCaptcha();
 
             CaptchaImage.Source = captcha;
@@ -73,7 +98,7 @@ namespace LaboratoryApp
         {
             PBoxPassword.IsEnabled = isEnabled;
             LoginBox.IsEnabled = isEnabled;
-            BtnLogin.IsEnabled = IsEnabled;
+            BtnLogin.IsEnabled = isEnabled;
         }
 
         private void ShowPasswordBox_Checked(object sender, RoutedEventArgs e)
@@ -88,6 +113,43 @@ namespace LaboratoryApp
             PBoxPassword.Password = TBoxPassword.Text;
             PBoxPassword.Visibility = Visibility.Visible;
             TBoxPassword.Visibility = Visibility.Collapsed;
+        }
+
+        private void BtnCheckCaptcha_Click(object sender, RoutedEventArgs e)
+        {
+            if (CaptchaUtils.ValidateCaptcha(CaptchaBox.Text))
+            {
+                SetUserControlsEnabledState(true);
+                HideCaptchaPanel();
+            }
+            else
+            {
+                BlockInterface();
+            }
+        }
+
+        private void BlockInterface()
+        {
+            IsEnabled = false;
+
+            DispatcherTimer timer = new DispatcherTimer
+            {
+                Interval = TimeSpan.FromSeconds(10),
+            };
+
+            timer.Tick += TimerUnblockInterface;
+            timer.Start();
+        }
+
+        private void TimerUnblockInterface(object sender, EventArgs e)
+        {
+            (sender as DispatcherTimer).Stop();
+            IsEnabled = true;
+        }
+
+        private void BtnReloadCaptcha_Click(object sender, RoutedEventArgs e)
+        {
+            InsertCaptcha();
         }
     }
 }
