@@ -27,6 +27,8 @@ namespace LaboratoryApp.Views
         {
             InitializeComponent();
 
+            AppData.MainFrame = MainFrame;
+
             string role = AppData.CurrentUser.TypeOfUser.Name;
 
             if (role == "Лаборант" || role == "Лаборант-исследователь")

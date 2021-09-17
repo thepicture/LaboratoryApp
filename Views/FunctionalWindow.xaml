@@ -5,18 +5,18 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LaboratoryApp.Views"
         mc:Ignorable="d"
-        Height="450" Width="800" MinHeight="450" MinWidth="800" Topmost="True"
+        Height="450" Width="800" MinHeight="450" MinWidth="800"
         Title="{Binding CurrentTitle}"
         Name="FuncWin"
         ContentRendered="FuncWin_ContentRendered">
     <Grid>
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="auto"></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition Height="*"></RowDefinition>
-            </Grid.RowDefinitions>
-        </Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" Background="CadetBlue"></Grid>
+        <Grid Grid.Row="2" Background="CornflowerBlue"></Grid>
         <!--This frame contains content depending on the user's role.-->
         <Frame x:Name="MainFrame" Grid.Row="1"></Frame>
     </Grid>

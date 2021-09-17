@@ -80,7 +80,8 @@ namespace LaboratoryApp
             }
             else
             {
-                SimpleMessager.ShowError($"Не удалось загрузить окно интерфейса для роли {user.TypeOfUser.Name}." +
+                SimpleMessager.ShowError($"Не удалось загрузить окно интерфейса для роли" +
+                    $" {user.TypeOfUser.Name}." +
                     $"\nПожалуйста, обратитесь к администратору.");
             }
         }
@@ -96,7 +97,7 @@ namespace LaboratoryApp
             AppData.CurrentTitle = user.FullName + " - " + user.TypeOfUser.Name;
 
             funcWindow.Show();
-            funcWindow.MainFrame.Navigate(UserPageFactory.CreatePageFor(user));
+            AppData.MainFrame.Navigate(UserPageFactory.CreatePageFor(user));
 
             Hide();
         }
