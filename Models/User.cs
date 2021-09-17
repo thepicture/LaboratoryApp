@@ -18,6 +18,7 @@ namespace LaboratoryApp.Models
         public User()
         {
             this.HistoryOfUser = new HashSet<HistoryOfUser>();
+            this.Order = new HashSet<Order>();
             this.Patient = new HashSet<Patient>();
             this.ProvidedService = new HashSet<ProvidedService>();
             this.Service = new HashSet<Service>();
@@ -35,6 +36,8 @@ namespace LaboratoryApp.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<HistoryOfUser> HistoryOfUser { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Order> Order { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Patient> Patient { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

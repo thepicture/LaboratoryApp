@@ -17,7 +17,7 @@ namespace LaboratoryApp.Models
         public int UserId { get; set; }
         public int ServiceId { get; set; }
         public int TypeOfAnalyzerId { get; set; }
-        public System.DateTime Date { get; set; }
+        public Nullable<System.DateTime> Date { get; set; }
         public int TimeInSeconds { get; set; }
     
         public virtual Service Service { get; set; }

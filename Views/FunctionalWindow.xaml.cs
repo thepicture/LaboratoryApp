@@ -47,11 +47,11 @@ namespace LaboratoryApp.Views
         {
             accumulator += TimeSpan.FromSeconds(1);
 
-            if (accumulator.Minutes == 1 && accumulator.Seconds == 0)
+            if (accumulator.Minutes == 10 && accumulator.Seconds == 0)
             {
                 Task.Run(() => SimpleMessager.ShowMessage("Сеанс окончится через 5 минут"));
             }
-            else if (accumulator.Minutes == 2 && accumulator.Seconds == 0)
+            else if (accumulator.Minutes == 5 && accumulator.Seconds == 0)
             {
                 Task.Run(() => SimpleMessager.ShowMessage("Сеанс окончен"));
 

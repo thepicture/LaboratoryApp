@@ -68,28 +68,37 @@ namespace LaboratoryApp
             }
             else
             {
-
-                if (user != null)
-                {
-                    AppData.CurrentUser = user;
-
-                    SimpleMessager.ShowMessage("Добро пожаловать, " + user.FullName + "!");
-                    FunctionalWindow funcWindow = new FunctionalWindow();
-
-                    AppData.LoginWindow = this;
-                    AppData.CurrentTitle = user.FullName + " - " + user.TypeOfUser.Name;
-                    funcWindow.MainFrame.Navigate(UserPageFactory.CreatePageFor(user));
-
-                    funcWindow.Show();
-
-                    Hide();
-                }
-                else
-                {
-                    SimpleMessager.ShowError($"Не удалось загрузить окно интерфейса для роли {user.TypeOfUser.Name}." +
-                        $"\nПожалуйста, обратитесь к администратору.");
-                }
+                TryToLogin(user);
             }
+        }
+
+        private void TryToLogin(User user)
+        {
+            if (user != null)
+            {
+                OpenFunctionalWindow(user);
+            }
+            else
+            {
+                SimpleMessager.ShowError($"Не удалось загрузить окно интерфейса для роли {user.TypeOfUser.Name}." +
+                    $"\nПожалуйста, обратитесь к администратору.");
+            }
+        }
+
+        private void OpenFunctionalWindow(User user)
+        {
+            AppData.CurrentUser = user;
+
+            SimpleMessager.ShowMessage("Добро пожаловать, " + user.FullName + "!");
+            FunctionalWindow funcWindow = new FunctionalWindow();
+
+            AppData.LoginWindow = this;
+            AppData.CurrentTitle = user.FullName + " - " + user.TypeOfUser.Name;
+
+            funcWindow.Show();
+            funcWindow.MainFrame.Navigate(UserPageFactory.CreatePageFor(user));
+
+            Hide();
         }
 
         private string[] GetControlsCredentials()

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LaboratoryApp.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,8 @@ namespace LaboratoryApp.Views
         public AssistantPage()
         {
             InitializeComponent();
+
+            ServiceOfOrderView.ItemsSource = Models.AppContext.GetInstance().ServiceOfOrder.ToList();
         }
     }
 }

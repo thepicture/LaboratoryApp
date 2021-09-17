@@ -8,7 +8,31 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="AssistantPage">
 
-    <Grid>
-        
+    <Grid Background="Aqua">
+        <GroupBox Header="Биоматериалы">
+            <ListView x:Name="ServiceOfOrderView">
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Horizontal"></WrapPanel>
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid Background="Blue" Opacity=".2" Grid.RowSpan="2"></Grid>
+                            <TextBlock Text="{Binding Order}" TextWrapping="Wrap"
+                                       Background="BlueViolet"
+                                       FontWeight="Bold" HorizontalAlignment="Center"></TextBlock>
+                            
+                        </Grid>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </GroupBox>
+        <ListView></ListView>
     </Grid>
 </Page>
