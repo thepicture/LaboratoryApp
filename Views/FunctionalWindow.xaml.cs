@@ -21,7 +21,7 @@ namespace LaboratoryApp.Views
     /// </summary>
     public partial class FunctionalWindow : Window
     {
-        private TimeSpan accumulator = new TimeSpan();
+        private TimeSpan accumulator = new TimeSpan(0, 0, 0);
 
         public FunctionalWindow()
         {
@@ -41,8 +41,6 @@ namespace LaboratoryApp.Views
 
             timer.Tick += Session_Tick;
             timer.Start();
-
-            TitleUtils.AppendValue(accumulator.ToString(), this);
         }
 
         private void Session_Tick(object sender, EventArgs e)
@@ -51,23 +49,36 @@ namespace LaboratoryApp.Views
 
             if (accumulator.Minutes == 1 && accumulator.Seconds == 0)
             {
-                SimpleMessager.ShowMessage("Сеанс окончится через 5 минут");
+                Task.Run(() => SimpleMessager.ShowMessage("Сеанс окончится через 5 минут"));
             }
             else if (accumulator.Minutes == 2 && accumulator.Seconds == 0)
             {
-                SimpleMessager.ShowMessage("Сеанс окончен");
+                Task.Run(() => SimpleMessager.ShowMessage("Сеанс окончен"));
 
                 CloseCurrentWindowAndBlockLogin();
                 (sender as DispatcherTimer).Stop();
             }
 
-            TitleUtils.AppendValue(accumulator.ToString(), this);
+            TitleUtils.AppendValue(GetHoursAndSeconds(), this);
+        }
+
+        private string GetHoursAndSeconds()
+        {
+            string hours = accumulator.Hours < 10 ? "0" + accumulator.Hours : accumulator.Hours.ToString();
+            string minutes = accumulator.Minutes < 10 ? "0" + accumulator.Minutes : accumulator.Minutes.ToString();
+
+            return hours + ":" + minutes;
         }
 
         private void CloseCurrentWindowAndBlockLogin()
         {
             Close();
             AppData.LoginWindow.Show();
+        }
+
+        private void FuncWin_ContentRendered(object sender, EventArgs e)
+        {
+            TitleUtils.AppendValue(GetHoursAndSeconds(), this);
         }
     }
 }

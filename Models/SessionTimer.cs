@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Threading;
 
 namespace LaboratoryApp.Models
@@ -14,7 +10,7 @@ namespace LaboratoryApp.Models
         {
             if (timer == null)
             {
-                timer = new DispatcherTimer
+                timer = new DispatcherTimer(DispatcherPriority.Background)
                 {
                     Interval = TimeSpan.FromSeconds(1),
                 };
