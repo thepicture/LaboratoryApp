@@ -38,5 +38,10 @@ namespace LaboratoryApp.Views
                 SimpleMessager.ShowError(ex.Message + ". Попробуйте поменять статус ещё раз.");
             }
         }
+
+        private void BtnReport_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+
+        }
     }
 }

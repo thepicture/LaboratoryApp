@@ -9,7 +9,12 @@
       Title="AssistantPage">
 
     <Grid>
-        <GroupBox Header="Биоматериалы">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <GroupBox Header="Биоматериалы" Grid.Row="1">
             <ListView x:Name="ServiceOfOrderView" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                 <ListView.ItemsPanel>
                     <ItemsPanelTemplate>
@@ -78,5 +83,9 @@
                 </ListView.ItemTemplate>
             </ListView>
         </GroupBox>
+        <Grid Grid.Row="2" Height="30" Background="LightCyan">
+            <Button Content="Сформировать отчёт" Name="BtnReport"
+                    HorizontalAlignment="Left" Click="BtnReport_Click"></Button>
+        </Grid>
     </Grid>
 </Page>

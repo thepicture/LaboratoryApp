@@ -137,6 +137,7 @@
     <Compile Include="Models\ProvidedService.cs">
       <DependentUpon>BaseModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ReportFormer.cs" />
     <Compile Include="Models\Service.cs">
       <DependentUpon>BaseModel.tt</DependentUpon>
     </Compile>
