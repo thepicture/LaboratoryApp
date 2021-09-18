@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace LaboratoryApp.Models
+﻿namespace LaboratoryApp.Models
 {
+    /// <summary>
+    /// The type which representing a checking of the IsArchive attribute.
+    /// </summary>
     public class ArchivedChecker
     {
         /// <summary>
@@ -14,17 +11,10 @@ namespace LaboratoryApp.Models
         /// otherwise item was not deleted or was recovered.
         /// </summary>
         /// <param name="value">IsArchived attribute value from database.</param>
-        /// <returns>Boolean which representing if the item is archived</returns>
+        /// <returns>Boolean which representing if the item is archived.</returns>
         public static bool IsArchived(bool? value)
         {
-            if (value == null || value == false)
-            {
-                return false;
-            }
-            else
-            {
-                return true;
-            }
+            return value != null && value != false;
         }
     }
 }
