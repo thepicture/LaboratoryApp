@@ -18,24 +18,60 @@
                 </ListView.ItemsPanel>
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <Grid Width="300" Height="300">
+                        <Grid Width="300" Height="300" Margin="5" RenderTransformOrigin="0.5,0.5">
+                            <Grid.RenderTransform>
+                                <ScaleTransform></ScaleTransform>
+                            </Grid.RenderTransform>
+                            <Grid.Triggers>
+                                <EventTrigger RoutedEvent="MouseEnter">
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation From="1"
+                                                             To="1.01"
+                                                             Duration="0:0:.1"
+                                                             Storyboard.TargetProperty="RenderTransform.ScaleX"></DoubleAnimation>
+                                            <DoubleAnimation From="1"
+                                                             To="1.01"
+                                                             Duration="0:0:.1"
+                                                             Storyboard.TargetProperty="RenderTransform.ScaleY"></DoubleAnimation>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </EventTrigger>
+                                <EventTrigger RoutedEvent="MouseLeave">
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation From="1.01"
+                                                             To="1"
+                                                             Duration="0:0:.1"
+                                                             Storyboard.TargetProperty="RenderTransform.ScaleX"></DoubleAnimation>
+                                            <DoubleAnimation From="1.01"
+                                                             To="1"
+                                                             Duration="0:0:.1"
+                                                             Storyboard.TargetProperty="RenderTransform.ScaleY"></DoubleAnimation>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </EventTrigger>
+                            </Grid.Triggers>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="*"></RowDefinition>
                                 <RowDefinition Height="*"></RowDefinition>
                                 <RowDefinition Height="*"></RowDefinition>
                             </Grid.RowDefinitions>
-                            <Grid Background="Blue" Opacity=".1" Grid.RowSpan="3">
+                            <Grid Background="Blue" Opacity=".1" Grid.RowSpan="4">
                                 <Grid.Effect>
                                     <DropShadowEffect BlurRadius="5" Color="Blue">
                                     </DropShadowEffect>
                                 </Grid.Effect>
                             </Grid>
                             <TextBlock Text="{Binding Service.Name}" TextWrapping="Wrap"
+                                       Margin="5"
                                        FontWeight="Bold" HorizontalAlignment="Center" FontSize="20"></TextBlock>
                             <TextBlock Grid.Row="1" Text="{Binding Order.User.FullName, StringFormat={}Пациент: {0}}"
-                                       HorizontalAlignment="Center" FontSize="20"></TextBlock>
+                                       Margin="5" HorizontalAlignment="Center" FontSize="20"></TextBlock>
                             <TextBlock Grid.Row="2" Text="{Binding Order.GetPriceSum, StringFormat={}{0} руб.}"
-                                       FontSize="20" VerticalAlignment="Bottom" HorizontalAlignment="Left"></TextBlock>
+                                       Margin="5" FontSize="20" VerticalAlignment="Bottom" HorizontalAlignment="Left"></TextBlock>
+                            <ComboBox ItemsSource="{Binding GetServiceStatuses}" SelectedItem="{Binding ServiceStatus}" DisplayMemberPath="Name" Grid.Row="2"
+                                      Height="20" Margin="5" HorizontalAlignment="Right" VerticalAlignment="Bottom"></ComboBox>
                         </Grid>
                     </DataTemplate>
                 </ListView.ItemTemplate>
