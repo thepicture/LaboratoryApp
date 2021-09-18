@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using AppContext = LaboratoryApp.Models.AppContext;
 
 namespace LaboratoryApp.Views
 {
@@ -25,7 +26,31 @@ namespace LaboratoryApp.Views
         {
             InitializeComponent();
 
-            ServiceOfOrderView.ItemsSource = Models.AppContext.GetInstance().ServiceOfOrder.ToList();
+            ServiceOfOrderView.ItemsSource = AppContext.GetInstance().ServiceOfOrder.ToList();
+        }
+
+        private void ComboStatus_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            ComboBox comboStatus = sender as ComboBox;
+            int orderId = (comboStatus.DataContext as ServiceOfOrder).OrderId;
+            if (!SimpleMessager.ShowQuestion("Точно обработать статус заказа?"))
+            {
+                SimpleMessager.ShowMessage("Отмена статуса отменена!");
+                return;
+            }
+            else
+            {
+                AppContext.GetInstance().ServiceOfOrder.Find(orderId).ServiceStatus = comboStatus.SelectedItem as ServiceStatus;
+                try
+                {
+                    AppContext.GetInstance().SaveChanges();
+                    SimpleMessager.ShowMessage("Статус успешно обновлён!");
+                }
+                catch (Exception ex)
+                {
+                    SimpleMessager.ShowError(ex.Message + ". Попробуйте поменять статус ещё раз.");
+                }
+            }
         }
     }
 }
