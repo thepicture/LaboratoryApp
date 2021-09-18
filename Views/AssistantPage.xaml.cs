@@ -1,5 +1,4 @@
 ﻿using LaboratoryApp.Models;
-using Microsoft.Win32;
 using System;
 using System.Linq;
 using System.Windows.Controls;
@@ -43,15 +42,13 @@ namespace LaboratoryApp.Views
         /// <summary>
         /// Forms a new report.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void BtnReport_Click(object sender, System.Windows.RoutedEventArgs e)
         {
-            SaveFileDialog dialog = new SaveFileDialog();
+            System.Windows.Forms.FolderBrowserDialog dialog = new System.Windows.Forms.FolderBrowserDialog();
 
-            if ((bool)dialog.ShowDialog())
+            if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                new ServiceOfOrderReportFormer().Form(dialog.FileName, true);
+                new ServiceOfOrderReportFormer().Form(dialog.SelectedPath, true);
                 SimpleMessager.ShowMessage("Документы успешно сохранены!");
             }
             else

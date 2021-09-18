@@ -21,7 +21,6 @@ namespace LaboratoryApp.Models
                 Word.Paragraph pGraph = doc.Paragraphs.Add();
                 Word.Range pRange = pGraph.Range;
                 pRange.Text = currentServiceOfOrder.Service.Name;
-                pRange.set_Style("Title");
                 pRange.InsertParagraphAfter();
 
                 Word.Paragraph tableParagraph = doc.Paragraphs.Add();
@@ -58,7 +57,7 @@ namespace LaboratoryApp.Models
                     cellRange.ParagraphFormat.Alignment = Word.WdParagraphAlignment.wdAlignParagraphCenter;
 
                     cellRange = servicesTable.Cell(i + 2, 3).Range;
-                    cellRange.Text = currentServiceOfOrder.Order.GetPriceSum;
+                    cellRange.Text = currentServiceOfOrder.Order.GetPriceSum + " руб.";
                     cellRange.ParagraphFormat.Alignment = Word.WdParagraphAlignment.wdAlignParagraphCenter;
 
                     if (currentForwardingOrder != servicesOfOrder.LastOrDefault())
