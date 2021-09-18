@@ -35,7 +35,7 @@
                             <TextBlock Grid.Row="1" Text="{Binding Order.User.FullName, StringFormat={}Пациент: {0}}"
                                        HorizontalAlignment="Center" FontSize="20"></TextBlock>
                             <TextBlock Grid.Row="2" Text="{Binding Order.GetPriceSum, StringFormat={}{0} руб.}"
-                                       HorizontalAlignment="Center" FontSize="20"></TextBlock>
+                                       FontSize="20" VerticalAlignment="Bottom" HorizontalAlignment="Left"></TextBlock>
                         </Grid>
                     </DataTemplate>
                 </ListView.ItemTemplate>
