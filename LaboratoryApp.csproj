@@ -128,6 +128,7 @@
     <Compile Include="Models\Order.cs">
       <DependentUpon>BaseModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\PartialOrder.cs" />
     <Compile Include="Models\Patient.cs">
       <DependentUpon>BaseModel.tt</DependentUpon>
     </Compile>
