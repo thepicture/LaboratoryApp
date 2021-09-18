@@ -29,27 +29,24 @@ namespace LaboratoryApp.Views
             ServiceOfOrderView.ItemsSource = AppContext.GetInstance().ServiceOfOrder.ToList();
         }
 
-        private void ComboStatus_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        /// <summary>
+        /// Changes the current status of the material with feedback from the system.
+        /// </summary>
+        private void ComboStatus_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             ComboBox comboStatus = sender as ComboBox;
             int orderId = (comboStatus.DataContext as ServiceOfOrder).OrderId;
-            if (!SimpleMessager.ShowQuestion("Точно обработать статус заказа?"))
+            int serviceId = (comboStatus.DataContext as ServiceOfOrder).ServiceId;
+
+            AppContext.GetInstance().ServiceOfOrder.Find(new object[] { serviceId, orderId }).ServiceStatus = comboStatus.SelectedItem as ServiceStatus;
+            try
             {
-                SimpleMessager.ShowMessage("Отмена статуса отменена!");
-                return;
+                AppContext.GetInstance().SaveChanges();
+                SimpleMessager.ShowMessage("Статус успешно обновлён!");
             }
-            else
+            catch (Exception ex)
             {
-                AppContext.GetInstance().ServiceOfOrder.Find(orderId).ServiceStatus = comboStatus.SelectedItem as ServiceStatus;
-                try
-                {
-                    AppContext.GetInstance().SaveChanges();
-                    SimpleMessager.ShowMessage("Статус успешно обновлён!");
-                }
-                catch (Exception ex)
-                {
-                    SimpleMessager.ShowError(ex.Message + ". Попробуйте поменять статус ещё раз.");
-                }
+                SimpleMessager.ShowError(ex.Message + ". Попробуйте поменять статус ещё раз.");
             }
         }
     }

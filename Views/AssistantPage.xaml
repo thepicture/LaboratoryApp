@@ -71,7 +71,8 @@
                             <TextBlock Grid.Row="2" Text="{Binding Order.GetPriceSum, StringFormat={}{0} руб.}"
                                        Margin="5" FontSize="20" VerticalAlignment="Bottom" HorizontalAlignment="Left"></TextBlock>
                             <ComboBox ItemsSource="{Binding GetServiceStatuses}" SelectedItem="{Binding ServiceStatus}" DisplayMemberPath="Name" Grid.Row="2"
-                                      Height="20" Margin="5" HorizontalAlignment="Right" VerticalAlignment="Bottom" Name="ComboStatus" MouseLeftButtonDown="ComboStatus_MouseLeftButtonDown"></ComboBox>
+                                      Height="20" Margin="5" HorizontalAlignment="Right" VerticalAlignment="Bottom" Name="ComboStatus"
+                                      SelectionChanged="ComboStatus_SelectionChanged"></ComboBox>
                         </Grid>
                     </DataTemplate>
                 </ListView.ItemTemplate>

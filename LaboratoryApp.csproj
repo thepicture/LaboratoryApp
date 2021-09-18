@@ -96,6 +96,7 @@
     </Compile>
     <Compile Include="Models\AppContext.cs" />
     <Compile Include="Models\AppData.cs" />
+    <Compile Include="Models\ArchivedChecker.cs" />
     <Compile Include="Models\BaseModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

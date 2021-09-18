@@ -52,12 +52,12 @@
                     VerticalAlignment="Center">
             <StackPanel Orientation="Horizontal" >
                 <TextBlock Text="Логин" Style="{StaticResource CommonBlock}"></TextBlock>
-                <TextBox Name="LoginBox"></TextBox>
+                <TextBox Name="LoginBox" Text="chacking0"></TextBox>
             </StackPanel>
             <StackPanel Orientation="Horizontal" >
                 <TextBlock Text="Пароль" Style="{StaticResource CommonBlock}"></TextBlock>
                 <StackPanel x:Name="PasswordHider">
-                    <PasswordBox HorizontalAlignment="Left" Name="PBoxPassword"></PasswordBox>
+                    <PasswordBox HorizontalAlignment="Left" Name="PBoxPassword" Password="123"></PasswordBox>
                     <TextBox x:Name="TBoxPassword" Visibility="Collapsed"></TextBox>
                 </StackPanel>
             </StackPanel>
